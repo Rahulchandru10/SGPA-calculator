@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Document</title>
+  <style>
+    #inpcnt {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header {
+      display: flex;
+      justify-content: center;
+      gap: 140px;
+    }
+    .row {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 10px;
+    }
+    body {
+      margin-top: 10%;
+    }
+  </style>
+</head>
+<body>
+  <center>
+    <h2>Calculate your SGPA</h2>
+    <label style="font-size: 20px;">Enter total number of Subjects</label>
+    <input type="number" id="inp">
+    <button onclick="addsub()">Go</button>
+
+    <div id="subjects">
+
+    </div>
+
+    <div id="total">
+      <button onclick="cal()" style="margin-top:2%;">Calculate</button>
+      <p id="res"></p>
+    </div>
+
+    <script>
+      function addsub() {
+        const n  = document.getElementById('inp').value;
+        const subcnt = document.getElementById('subjects');
+
+        for(let i=0;i<n;i++)
+        {
+          const sub  = document.createElement('div');
+          
+          const sublabel = document.createElement('input'); 
+          sublabel.type='text';
+          sublabel.placeholder='subject';
+
+          const credit = document.createElement('input');
+          credit.type='number';
+          credit.placeholder='credit'
+          credit.classList.add('cd')
+
+          const grade = document.createElement('input');
+          grade.type='text';
+          grade.placeholder='grade';
+          grade.classList.add('gd')
+
+          sub.appendChild(sublabel);
+          sub.appendChild(credit);
+          sub.appendChild(grade);
+
+          subcnt.appendChild(sub);
+          
+        }
+        
+      }
+      function cal() {
+        let total = 0;
+        const grdi = document.querySelectorAll('.gd');
+        const crdi = document.querySelectorAll('.cd');
+        
+        let totalcredit=0;
+        for(let i=0;i<crdi.length;i++)
+         totalcredit+=parseInt(crdi[i].value);
+
+        for (let i = 0; i < grdi.length; i++) {
+          const grd = grdi[i].value;
+          const crd = parseInt(crdi[i].value);
+
+          switch (grd) {
+            case "O":
+            case "o":
+              if (crd == 4)
+                total += 40;
+              else if (crd == 3)
+                total += 30;
+              else if (crd == 2)
+                total += 20;
+              else
+                total += 10;
+              break;
+
+            case "A+":
+            case "a+":
+              if (crd == 4)
+                total += 36;
+              else if (crd == 3)
+                total += 27;
+              else if (crd == 2)
+                total += 18;
+              else
+                total += 9;
+              break;
+
+            case "A":
+            case 'a':
+              if (crd == 4)
+                total += 32;
+              else if (crd == 3)
+                total += 24;
+              else if (crd == 2)
+                total += 16;
+              else
+                total += 8;
+              break;
+
+            case "B+":
+            case "b+":
+              if (crd == 4)
+                total += 28;
+              else if (crd == 3)
+                total += 21;
+              else if (crd == 2)
+                total += 14;
+              else
+                total += 7;
+              break;
+
+            case "B":
+            case "b":
+              if (crd == 4)
+                total += 24;
+              else if (crd == 3)
+                total += 18;
+              else if (crd == 2)
+                total += 12;
+              else
+                total += 6;
+              break;
+
+            case "C":
+            case "c":
+              if (crd == 4)
+                total += 20;
+              else if (crd == 3)
+                total += 15;
+              else if (crd == 2)
+                total += 10;
+              else
+                total += 5;
+              break;
+
+            default:
+              total += 0;
+          }
+        }
+        const res = document.getElementById('res');
+        res.innerHTML = `Total SGPA: ${total/totalcredit}`;
+      }
+
+    </script>
+  </center>
+</body>
+</html>
